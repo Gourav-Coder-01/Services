@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" width="640" height="340" role="img" aria-label="Mayuri L5 Rattan Cargo in Electric Fleet Blue">
+  <defs>
+    <linearGradient id="cabinGrad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="45%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+    <linearGradient id="glassGrad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#334155" stop-opacity="0.85" />
+    </linearGradient>
+    <radialGradient id="groundShadow-blue" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0F172A" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="325" cy="296" rx="260" ry="18" fill="url(#groundShadow-blue)" />
+
+  <!-- Rear Open Rattan / High-Tensile Mesh Cargo Tray -->
+  <g>
+    <rect x="75" y="135" width="275" height="105" rx="6" fill="#0369A1" stroke="#0C4A6E" stroke-width="3" />
+    <rect x="83" y="143" width="259" height="88" rx="4" fill="none" stroke="#7DD3FC" stroke-width="1.5" stroke-dasharray="6 4" />
+    <line x1="120" y1="136" x2="120" y2="239" stroke="#0C4A6E" stroke-width="4" />
+    <line x1="165" y1="136" x2="165" y2="239" stroke="#0C4A6E" stroke-width="4" />
+    <line x1="210" y1="136" x2="210" y2="239" stroke="#0C4A6E" stroke-width="4" />
+    <line x1="255" y1="136" x2="255" y2="239" stroke="#0C4A6E" stroke-width="4" />
+    <line x1="300" y1="136" x2="300" y2="239" stroke="#0C4A6E" stroke-width="4" />
+    <line x1="76" y1="170" x2="349" y2="170" stroke="#0C4A6E" stroke-width="3.5" />
+    <line x1="76" y1="205" x2="349" y2="205" stroke="#0C4A6E" stroke-width="3.5" />
+    <rect x="72" y="127" width="281" height="10" rx="4" fill="#1E293B" />
+    <rect x="145" y="176" width="135" height="24" rx="3" fill="#0F172A" fill-opacity="0.85" />
+    <text x="212" y="192" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="800" letter-spacing="1.5" font-family="sans-serif">
+      MAYURI L5 CARGO
+    </text>
+  </g>
+
+  <!-- Heavy-Duty Chassis Frame -->
+  <rect x="95" y="240" width="380" height="14" rx="4" fill="#1E293B" />
+  <path d="M 135 252 Q 175 268 215 252" fill="none" stroke="#475569" stroke-width="5" stroke-linecap="round" />
+
+  <!-- Driver Cabin -->
+  <g>
+    <path d="M 355 78 L 455 78 Q 475 78 485 102 L 515 175 L 525 245 L 355 245 Z" fill="url(#cabinGrad-blue)" stroke="#0369A1" stroke-width="2.5" />
+    <path d="M 350 74 L 462 74 L 470 82 L 350 82 Z" fill="#0F172A" />
+    <path d="M 455 88 L 477 95 L 502 162 L 455 162 Z" fill="url(#glassGrad-blue)" stroke="#0F172A" stroke-width="2.5" />
+    <path d="M 372 95 L 442 95 L 442 172 L 475 182 L 475 236 L 372 236 Z" fill="#0F172A" fill-opacity="0.22" stroke="#0369A1" stroke-width="2" />
+    <path d="M 382 145 L 395 145 L 398 205 L 432 205 L 432 218 L 382 218 Z" fill="#1E293B" />
+    <line x1="448" y1="175" x2="465" y2="152" stroke="#0F172A" stroke-width="5" stroke-linecap="round" />
+    <path d="M 505 170 L 542 182 Q 554 188 554 205 L 554 242 L 510 245 Z" fill="url(#cabinGrad-blue)" stroke="#0369A1" stroke-width="2" />
+    <rect x="544" y="190" width="12" height="22" rx="4" fill="#FEF08A" stroke="#CA8A04" stroke-width="1.5" />
+    <rect x="515" y="236" width="46" height="12" rx="5" fill="#0F172A" />
+    <rect x="484" y="198" width="32" height="16" rx="3" fill="#FFFFFF" />
+    <text x="500" y="210" text-anchor="middle" fill="#0F172A" font-size="10" font-weight="900" font-family="sans-serif">
+      L5 EV
+    </text>
+  </g>
+
+  <!-- Front Fork & Mudguard -->
+  <path d="M 488 228 Q 515 205 542 232" fill="none" stroke="#0369A1" stroke-width="7" stroke-linecap="round" />
+  <line x1="496" y1="185" x2="514" y2="258" stroke="#334155" stroke-width="6" stroke-linecap="round" />
+
+  <!-- Rear Wheel -->
+  <g transform="translate(175, 258)">
+    <circle cx="0" cy="0" r="36" fill="#0F172A" />
+    <circle cx="0" cy="0" r="18" fill="#334155" />
+    <circle cx="0" cy="0" r="8" fill="#94A3B8" />
+  </g>
+
+  <!-- Front Wheel -->
+  <g transform="translate(542, 258)">
+    <circle cx="0" cy="0" r="34" fill="#0F172A" />
+    <circle cx="0" cy="0" r="16" fill="#334155" />
+    <circle cx="0" cy="0" r="7" fill="#94A3B8" />
+  </g>
+</svg>
