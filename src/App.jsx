@@ -14,7 +14,7 @@ import ServiceModal from './components/ServiceModal';
 import EnquiryModal from './components/EnquiryModal';
 import WhatsAppButton from './components/WhatsAppButton';
 
-const SITE_URL = 'https://skytechnetsolutions.vercel.app/';
+const SITE_URL = 'https://skytechnetsolutions.vercel.app';
 
 export default function App() {
   const location = useLocation();
@@ -179,14 +179,17 @@ export default function App() {
         />
       )}
 
-      <EnquiryModal
-        isOpen={enquiryModalOpen}
-        onClose={() => setEnquiryModalOpen(false)}
-        enquiryForm={enquiryForm}
-        setEnquiryForm={setEnquiryForm}
-        submitted={enquirySubmitted}
-        setSubmitted={setEnquirySubmitted}
-      />
+      {enquiryModalOpen && (
+        <EnquiryModal
+          key={enquiryForm.model}
+          isOpen={enquiryModalOpen}
+          onClose={() => setEnquiryModalOpen(false)}
+          enquiryForm={enquiryForm}
+          setEnquiryForm={setEnquiryForm}
+          submitted={enquirySubmitted}
+          setSubmitted={setEnquirySubmitted}
+        />
+      )}
     </div>
   );
 }
