@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { X, CheckCircle2, ArrowRight, MessageCircle, AlertCircle } from 'lucide-react';
 
 const GSCRIPT_URL = import.meta.env.VITE_GSCRIPT_URL;
@@ -17,22 +17,46 @@ export default function EnquiryModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const [isError, setIsError] = useState(false);
+  const closeTimerRef = useRef(null);
+
+  // Sync open state during render without calling setState synchronously inside useEffect
+  if (isOpen && (!shouldRender || animatingOut)) {
+    setShouldRender(true);
+    setAnimatingOut(false);
+    setStatusMessage('');
+    setIsError(false);
+  }
+
+  const handleClose = useCallback(() => {
+    setAnimatingOut(true);
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+    }
+    closeTimerRef.current = setTimeout(() => {
+      setShouldRender(false);
+      setAnimatingOut(false);
+      onClose();
+    }, 200);
+  }, [onClose]);
 
   useEffect(() => {
-    if (isOpen) {
-      setShouldRender(true);
+    if (isOpen || !shouldRender) return;
+
+    const timer = setTimeout(() => {
+      setShouldRender(false);
       setAnimatingOut(false);
-      setStatusMessage('');
-      setIsError(false);
-    } else if (shouldRender) {
-      setAnimatingOut(true);
-      const timer = setTimeout(() => {
-        setShouldRender(false);
-        setAnimatingOut(false);
-      }, 220);
-      return () => clearTimeout(timer);
-    }
+    }, 220);
+
+    return () => clearTimeout(timer);
   }, [isOpen, shouldRender]);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, []);
 
   // Lock background page scroll & allow Escape key close
   useEffect(() => {
@@ -50,21 +74,46 @@ export default function EnquiryModal({
       document.body.style.overflow = originalOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [shouldRender]);
+  }, [shouldRender, handleClose]);
 
-  const handleClose = () => {
-    setAnimatingOut(true);
-    setTimeout(() => {
-      onClose();
-    }, 200);
+  const handlePhoneChange = (e) => {
+    const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
+    setEnquiryForm({ ...enquiryForm, phone: digitsOnly });
+  };
+
+  const validateForm = () => {
+    const trimmedName = (enquiryForm.fullName || '').trim();
+    const digitsPhone = (enquiryForm.phone || '').replace(/\D/g, '');
+    const trimmedEmail = (enquiryForm.email || '').trim();
+    const trimmedCity = (enquiryForm.city || '').trim();
+    const trimmedEnquiry = (enquiryForm.enquiry || '').trim();
+
+    if (!trimmedName || !digitsPhone || !trimmedEmail || !trimmedCity || !trimmedEnquiry) {
+      return 'Please fill out all fields before submitting.';
+    }
+
+    if (digitsPhone.length !== 10) {
+      return 'Please enter a valid 10-digit phone number.';
+    }
+
+    return null;
   };
 
   const buildWhatsAppMessage = () =>
     encodeURIComponent(
-      `Hello Sky Tech Net Solutions,\n\n*Enquiry For:* ${enquiryForm.model}\n*Type:* ${enquiryForm.enquiryType || 'General Enquiry'}\n*Name:* ${enquiryForm.fullName || 'Not provided'}\n*Phone:* ${enquiryForm.phone || 'Not provided'}\n*Email:* ${enquiryForm.email || 'Not provided'}\n*City:* ${enquiryForm.city || 'Delhi / NCR'}${enquiryForm.enquiry ? `\n*Enquiry:* ${enquiryForm.enquiry}` : ''}`
+      `Hello Sky Tech Net Solutions,\n\n*Enquiry For:* ${enquiryForm.model}\n*Type:* ${enquiryForm.enquiryType || 'General Enquiry'}\n*Name:* ${enquiryForm.fullName.trim()}\n*Phone:* ${enquiryForm.phone.trim()}\n*Email:* ${enquiryForm.email.trim()}\n*City:* ${enquiryForm.city.trim()}\n*Enquiry:* ${enquiryForm.enquiry.trim()}`
     );
 
   const handleWhatsAppDirect = () => {
+    const validationError = validateForm();
+    if (validationError) {
+      setIsError(true);
+      setStatusMessage(validationError);
+      return;
+    }
+
+    setIsError(false);
+    setStatusMessage('');
     window.open(
       `https://wa.me/${WHATSAPP_NUMBER}?text=${buildWhatsAppMessage()}`,
       '_blank',
@@ -75,6 +124,13 @@ export default function EnquiryModal({
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
+
+    const validationError = validateForm();
+    if (validationError) {
+      setIsError(true);
+      setStatusMessage(validationError);
+      return;
+    }
 
     setIsSubmitting(true);
     setIsError(false);
@@ -94,11 +150,11 @@ export default function EnquiryModal({
         body: JSON.stringify({
           model: enquiryForm.model,
           enquiryType: enquiryForm.enquiryType || 'General Enquiry',
-          fullName: enquiryForm.fullName,
-          phone: enquiryForm.phone,
-          email: enquiryForm.email || '',
-          city: enquiryForm.city || 'Delhi / NCR',
-          enquiry: enquiryForm.enquiry || '',
+          fullName: enquiryForm.fullName.trim(),
+          phone: enquiryForm.phone.trim(),
+          email: enquiryForm.email.trim(),
+          city: enquiryForm.city.trim(),
+          enquiry: enquiryForm.enquiry.trim(),
         }),
       });
 
@@ -113,7 +169,7 @@ export default function EnquiryModal({
 
       setStatusMessage('Success! Saved to Google Sheet and sent to mail.');
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       setIsError(true);
       setStatusMessage(
         'Could not send automatically right now. You can still send your details directly on WhatsApp below.'
@@ -242,18 +298,18 @@ export default function EnquiryModal({
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Phone Number *
+                    Phone Number (10 Digits) *
                   </label>
                   <input
                     type="tel"
-                    inputMode="tel"
+                    inputMode="numeric"
+                    pattern="\d{10}"
+                    maxLength={10}
                     required
                     autoComplete="tel"
-                    placeholder="e.g. 95555 29034"
+                    placeholder="10-digit number (e.g. 9555529034)"
                     value={enquiryForm.phone || ''}
-                    onChange={(e) =>
-                      setEnquiryForm({ ...enquiryForm, phone: e.target.value })
-                    }
+                    onChange={handlePhoneChange}
                     className="w-full rounded-xl border border-slate-300 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none px-3.5 py-2.5 text-base sm:text-sm transition-all"
                   />
                 </div>
@@ -262,11 +318,12 @@ export default function EnquiryModal({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Email Address
+                    Email Address *
                   </label>
                   <input
                     type="email"
                     inputMode="email"
+                    required
                     autoComplete="email"
                     placeholder="e.g. amit@example.com"
                     value={enquiryForm.email || ''}
@@ -278,10 +335,11 @@ export default function EnquiryModal({
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    City / Location
+                    City / Location *
                   </label>
                   <input
                     type="text"
+                    required
                     autoComplete="address-level2"
                     placeholder="e.g. Delhi / NCR"
                     value={enquiryForm.city || ''}
@@ -295,10 +353,11 @@ export default function EnquiryModal({
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Enquiry
+                  Enquiry *
                 </label>
                 <textarea
                   rows="2"
+                  required
                   placeholder="Write your enquiry or specific requirement..."
                   value={enquiryForm.enquiry || ''}
                   onChange={(e) =>
