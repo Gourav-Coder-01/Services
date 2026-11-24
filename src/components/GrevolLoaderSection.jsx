@@ -99,35 +99,39 @@ export default function GrevolLoaderSection({ openEnquiry }) {
   const [usageType, setUsageType] = useState('business');
 
   return (
-    <section id="grevol-loader" className="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="grevol-loader"
+      className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-clip"
+    >
       <RevealOnScroll>
-        <div className="max-w-3xl mb-10 sm:mb-12">
-          <span className="text-xs font-extrabold uppercase tracking-widest text-emerald-600">
+        <div className="max-w-3xl mb-8 sm:mb-12">
+          <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-widest text-emerald-600">
             L5N Electric Cargo Loader
           </span>
-          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 mt-2 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 mt-1.5 sm:mt-2 tracking-tight leading-tight">
             GREVOL LOADER L5 (Grevol EVAUM)
           </h2>
-          <p className="text-slate-600 mt-3 text-sm sm:text-lg leading-relaxed">
+          <p className="text-slate-600 mt-2.5 sm:mt-3 text-sm sm:text-base lg:text-lg leading-relaxed">
             Namaste! High-payload enclosed electric cargo loader engineered for commercial fleet owners,
             parcel delivery, and daily business earnings with zero no-entry restrictions.
           </p>
         </div>
       </RevealOnScroll>
 
-      <div className="space-y-10 sm:space-y-12">
+      <div className="space-y-8 sm:space-y-12">
         {/* Offer & Fleet Highlights Card */}
         <RevealOnScroll delay={80}>
           <div className="bg-slate-900 text-white rounded-2xl sm:rounded-3xl border border-slate-800 shadow-xl overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-12">
+            <div className="grid grid-cols-1 xl:grid-cols-12">
               {/* Left Key Metrics */}
-              <div className="lg:col-span-7 p-5 sm:p-8 lg:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800">
+              <div className="xl:col-span-7 p-4 sm:p-7 lg:p-10 flex flex-col justify-between border-b xl:border-b-0 xl:border-r border-slate-800">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-700/70 text-emerald-300 text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-                    <Sparkles className="w-3.5 h-3.5 shrink-0" /> Limited Commercial Offer • L5N Category
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950 border border-emerald-700/70 text-emerald-300 text-[10px] sm:text-xs font-bold uppercase tracking-wider leading-snug">
+                    <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                    <span>Limited Commercial Offer • L5N Category</span>
                   </div>
 
-                  <h3 className="text-xl sm:text-3xl font-black text-white mt-4">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white mt-3.5 sm:mt-4 leading-tight">
                     EV Vehicle Offer — Only ₹21,000
                   </h3>
                   <p className="text-slate-300 text-sm sm:text-base mt-2 leading-relaxed">
@@ -136,19 +140,19 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                     loader with fast LFP charging, weekly EMI ease, and complete ownership peace of mind.
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 mt-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-5 sm:mt-6">
                     {GREVOL_OFFER_HIGHLIGHTS.map((item) => {
                       const IconComp = item.icon;
                       return (
                         <div
                           key={item.label}
-                          className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 hover:border-sky-500/50 transition-all duration-300"
+                          className="p-3.5 sm:p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 hover:border-sky-500/50 transition-all duration-300"
                         >
                           <div className="flex items-center justify-between gap-2 text-xs font-semibold text-slate-400">
-                            <span>{item.label}</span>
+                            <span className="truncate">{item.label}</span>
                             <IconComp className="w-4 h-4 text-sky-400 shrink-0" />
                           </div>
-                          <p className="text-lg sm:text-2xl font-black text-white mt-1.5">
+                          <p className="text-lg sm:text-xl lg:text-2xl font-black text-white mt-1.5 tracking-tight">
                             {item.value}
                           </p>
                           <p className="text-xs text-emerald-400 font-medium mt-0.5">{item.sub}</p>
@@ -159,20 +163,20 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                 </div>
 
                 {/* Quick Usage Selector */}
-                <div className="mt-7 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3.5 sm:gap-4">
+                  <div className="min-w-0">
+                    <p className="text-xs font-extrabold uppercase tracking-wider text-slate-300 leading-snug">
                       Aap apne use ke liye le rahe ho ya business ke liye?
                     </p>
                     <p className="text-xs text-slate-400 mt-0.5">
                       Select your purpose before opening the enquiry desk
                     </p>
                   </div>
-                  <div className="grid grid-cols-2 sm:flex items-center gap-2.5 w-full sm:w-auto shrink-0">
+                  <div className="grid grid-cols-2 md:flex items-center gap-2.5 w-full md:w-auto shrink-0">
                     <button
                       type="button"
                       onClick={() => setUsageType('business')}
-                      className={`px-3.5 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs font-bold border transition-all duration-200 cursor-pointer text-center ${
+                      className={`px-3.5 sm:px-4 py-2.5 rounded-xl text-xs font-bold border transition-all duration-200 active:scale-[0.98] cursor-pointer text-center whitespace-nowrap ${
                         usageType === 'business'
                           ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-sm'
                           : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500'
@@ -183,7 +187,7 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                     <button
                       type="button"
                       onClick={() => setUsageType('personal')}
-                      className={`px-3.5 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs font-bold border transition-all duration-200 cursor-pointer text-center ${
+                      className={`px-3.5 sm:px-4 py-2.5 rounded-xl text-xs font-bold border transition-all duration-200 active:scale-[0.98] cursor-pointer text-center whitespace-nowrap ${
                         usageType === 'personal'
                           ? 'bg-sky-400 text-slate-950 border-sky-300 shadow-sm'
                           : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500'
@@ -196,7 +200,7 @@ export default function GrevolLoaderSection({ openEnquiry }) {
               </div>
 
               {/* Right Included Benefits & Enquiry CTA */}
-              <div className="lg:col-span-5 p-5 sm:p-8 lg:p-10 bg-slate-950/60 flex flex-col justify-between">
+              <div className="xl:col-span-5 p-4 sm:p-7 lg:p-10 bg-slate-950/60 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 text-emerald-400 text-xs font-extrabold uppercase tracking-wider">
                     <ShieldCheck className="w-4 h-4 shrink-0" /> Included Ownership Benefits
@@ -205,9 +209,12 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                     Warranty, Service &amp; Road Advantage
                   </h4>
 
-                  <ul className="mt-4 sm:mt-5 space-y-2.5 sm:space-y-3">
+                  <ul className="mt-4 sm:mt-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-2.5 sm:gap-3">
                     {GREVOL_INCLUDED_BENEFITS.map((benefit) => (
-                      <li key={benefit} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
+                      <li
+                        key={benefit}
+                        className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 leading-snug"
+                      >
                         <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                         <span>{benefit}</span>
                       </li>
@@ -215,34 +222,36 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                   </ul>
 
                   {/* Responsive Vehicle Front & Back Images */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-6">
-                    <div className="relative aspect-[16/10] w-full bg-white rounded-2xl p-2.5 border border-slate-800 overflow-hidden flex items-center justify-center group/front">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-3.5 mt-6">
+                    <div className="relative aspect-4/3 sm:aspect-16/10 w-full bg-white rounded-xl sm:rounded-2xl p-2 sm:p-2.5 border border-slate-800 overflow-hidden flex items-center justify-center group/front">
                       <img
                         src={GrevolFront}
                         alt="Grevol Loader L5 Front View"
+                        loading="lazy"
                         style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
                         className="max-w-full max-h-full w-auto h-auto object-contain object-center transition-transform duration-300 will-change-transform group-hover/front:scale-105"
                       />
-                      <span className="pointer-events-none absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-slate-900/85 text-[10px] font-bold text-white">
+                      <span className="pointer-events-none absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 px-2 py-0.5 rounded-md bg-slate-900/85 text-[10px] font-bold text-white">
                         Front View
                       </span>
                     </div>
 
-                    <div className="relative aspect-[16/10] w-full bg-white rounded-2xl p-2.5 border border-slate-800 overflow-hidden flex items-center justify-center group/back">
+                    <div className="relative aspect-4/3 sm:aspect-16/10 w-full bg-white rounded-xl sm:rounded-2xl p-2 sm:p-2.5 border border-slate-800 overflow-hidden flex items-center justify-center group/back">
                       <img
                         src={GrevolBack}
                         alt="Grevol Loader L5 Rear View"
+                        loading="lazy"
                         style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
                         className="max-w-full max-h-full w-auto h-auto object-contain object-center transition-transform duration-300 will-change-transform group-hover/back:scale-105"
                       />
-                      <span className="pointer-events-none absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-slate-900/85 text-[10px] font-bold text-white">
+                      <span className="pointer-events-none absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 px-2 py-0.5 rounded-md bg-slate-900/85 text-[10px] font-bold text-white">
                         Rear View
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-7 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-800 space-y-3">
+                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-800 space-y-3">
                   <button
                     type="button"
                     onClick={() =>
@@ -251,11 +260,12 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                         'Grevol Loader L5 Enquiry / Offer'
                       )
                     }
-                    className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold py-3.5 px-5 rounded-xl text-sm transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+                    className="w-full bg-emerald-500 hover:bg-emerald-400 active:scale-[0.99] text-slate-950 font-extrabold py-3.5 px-5 rounded-xl text-sm transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg"
                   >
-                    Enquire for Grevol Loader L5 <ChevronRight className="w-4 h-4 shrink-0" />
+                    <span>Enquire for Grevol Loader L5</span>
+                    <ChevronRight className="w-4 h-4 shrink-0" />
                   </button>
-                  <p className="text-[11px] text-slate-400 text-center">
+                  <p className="text-[11px] text-slate-400 text-center leading-relaxed">
                     *Certified range and specifications apply under standard test conditions.
                   </p>
                 </div>
@@ -266,23 +276,23 @@ export default function GrevolLoaderSection({ openEnquiry }) {
 
         {/* Technical Specifications Grid */}
         <RevealOnScroll delay={140}>
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-lg p-5 sm:p-8 lg:p-10">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-lg p-4 sm:p-7 lg:p-10">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 sm:pb-6 border-b border-slate-200">
               <div>
                 <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-sky-600">
                   <Layers className="w-4 h-4 shrink-0" /> Technical Datasheet
                 </div>
-                <h3 className="text-xl sm:text-3xl font-black text-slate-900 mt-1">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 mt-1">
                   Grevol EVAUM — L5N Specifications
                 </h3>
               </div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 w-fit">
+              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 w-full sm:w-fit">
                 <Wrench className="w-4 h-4 text-sky-600 shrink-0" />
-                <span>Payload: 750 kg • Battery: 200 Ah, 51.2 V LFP</span>
+                <span className="leading-snug">Payload: 750 kg • Battery: 200 Ah, 51.2 V LFP</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mt-5 sm:mt-8">
               {GREVOL_SPEC_GROUPS.map((group) => (
                 <div
                   key={group.id}
@@ -290,18 +300,18 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                 >
                   <div>
                     <span
-                      className={`inline-block px-3 py-1 rounded-full text-[11px] sm:text-xs font-extrabold uppercase ${group.badgeBg}`}
+                      className={`inline-block px-3 py-1 rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-wide ${group.badgeBg}`}
                     >
                       {group.title}
                     </span>
-                    <dl className="mt-4 space-y-2.5 text-xs sm:text-sm">
+                    <dl className="mt-3.5 sm:mt-4 space-y-2.5 text-xs sm:text-sm">
                       {group.rows.map((row) => (
                         <div
                           key={row.label}
-                          className="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 py-1.5 border-b border-slate-200/70 last:border-b-0"
+                          className="flex flex-col sm:flex-row sm:items-start justify-between gap-0.5 sm:gap-4 py-1.5 border-b border-slate-200/70 last:border-b-0"
                         >
                           <dt className="text-slate-500 font-medium shrink-0">{row.label}</dt>
-                          <dd className="text-slate-900 font-bold sm:text-right break-words">
+                          <dd className="text-slate-900 font-bold sm:text-right wrap-break-word">
                             {row.value}
                           </dd>
                         </div>
@@ -317,7 +327,7 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-slate-900 text-[11px] sm:text-xs font-extrabold uppercase shadow-2xs">
                     <BatteryCharging className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Fleet Advantage
                   </div>
-                  <h4 className="text-base sm:text-lg font-black text-slate-900 mt-4">
+                  <h4 className="text-base sm:text-lg font-black text-slate-900 mt-3.5 sm:mt-4">
                     Built for High Uptime &amp; Low Running Cost
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
@@ -335,7 +345,7 @@ export default function GrevolLoaderSection({ openEnquiry }) {
                       'Request Full Grevol Spec & Quote'
                     )
                   }
-                  className="mt-6 w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-colors duration-200 cursor-pointer"
+                  className="mt-5 sm:mt-6 w-full bg-slate-900 hover:bg-sky-600 active:scale-[0.99] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all duration-200 cursor-pointer"
                 >
                   Get Quote &amp; Delivery Info
                 </button>

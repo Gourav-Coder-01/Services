@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SkyTechServices from './components/SkyTechServices';
@@ -13,6 +13,8 @@ import Footer from './components/Footer';
 import ServiceModal from './components/ServiceModal';
 import EnquiryModal from './components/EnquiryModal';
 import WhatsAppButton from './components/WhatsAppButton';
+
+const SITE_URL = 'https://skytechnetsolutions.vercel.app/';
 
 export default function App() {
   const location = useLocation();
@@ -62,27 +64,32 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Smoothly scroll to top whenever the route path changes
   useEffect(() => {
+    if (location.hash) return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-sky-600 selection:text-white">
+    <div className="min-h-dvh flex flex-col bg-slate-900 text-slate-900 font-sans antialiased overflow-x-clip selection:bg-sky-600 selection:text-white">
       <Navbar openEnquiry={openEnquiry} />
 
-      {/* key={location.pathname} replays the smooth fade-in animation on every page switch */}
-      <div key={location.pathname} className="animate-page-enter">
+      <div
+        key={location.pathname}
+        className="flex-1 w-full min-w-0 bg-slate-50"
+      >
         <Routes location={location}>
           <Route
             path="/"
             element={
-              <>
-                <Hero
-                  rattanColor={rattanColor}
-                  setRattanColor={setRattanColor}
-                  openEnquiry={openEnquiry}
+              <main className="w-full min-w-0">
+                <title>SKY Tech Net Solutions | Mayuri L5 EV Fleet &amp; Online Services</title>
+                <meta
+                  name="description"
+                  content="SKY Tech Net Solutions in Delhi / NCR offers commercial EV cargo vehicles (Mayuri L5 Rattan Cargo, Mayuri L5 Closed Body, Grevol Loader L5) and online documentation services."
                 />
+                <link rel="canonical" href={`${SITE_URL}/`} />
+
+                <Hero openEnquiry={openEnquiry} />
                 <ProductCatalog
                   rattanColor={rattanColor}
                   setRattanColor={setRattanColor}
@@ -109,15 +116,51 @@ export default function App() {
                 />
                 <OtherServices openEnquiry={openEnquiry} />
                 <RoiCalculator openEnquiry={openEnquiry} />
-              </>
+              </main>
             }
           />
 
           <Route
             path="/online-services"
             element={
-              <main className="min-h-[70vh] py-8">
-                <SkyTechServices openEnquiry={openEnquiry} />
+              <main className="min-h-[70dvh] py-4 sm:py-6 lg:py-8 w-full min-w-0 bg-slate-900">
+                <title>
+                  Online &amp; Documentation Services (DL, RC, Insurance, FASTag) | SKY Tech Net Solutions
+                </title>
+                <meta
+                  name="description"
+                  content="Get fast assistance for Driving Licence (DL), RC registration, commercial insurance, FASTag, PAN card, online forms, tickets, and Aadhaar services in Delhi / NCR."
+                />
+                <link rel="canonical" href={`${SITE_URL}/online-services`} />
+
+                <SkyTechServices openEnquiry={openEnquiry} asPageHeading />
+              </main>
+            }
+          />
+
+          <Route
+            path="*"
+            element={
+              <main className="min-h-[70dvh] flex items-center justify-center px-4 py-16">
+                <meta name="robots" content="noindex, follow" />
+                <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-sm space-y-4">
+                  <span className="inline-block px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-extrabold uppercase">
+                    Page Not Found
+                  </span>
+                  <h1 className="text-xl sm:text-2xl font-black text-slate-900">
+                    Return to Sky Tech Net Solutions
+                  </h1>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    The requested route could not be found. Head back to the main EV fleet &amp;
+                    online services portal.
+                  </p>
+                  <Link
+                    to="/"
+                    className="inline-flex items-center justify-center w-full bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold py-3 px-5 rounded-xl transition-colors"
+                  >
+                    Go to Home
+                  </Link>
+                </div>
               </main>
             }
           />
@@ -129,6 +172,7 @@ export default function App() {
 
       {serviceModalOpen && selectedServiceForModal && (
         <ServiceModal
+          key={selectedServiceForModal.id}
           service={selectedServiceForModal}
           onClose={() => setServiceModalOpen(false)}
           openEnquiry={openEnquiry}
